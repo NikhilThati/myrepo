@@ -12,7 +12,7 @@ pipeline{
               jsonitem = readJSON text: output
               println(jsonitem)
            }
-           sh "sudo sed -i.bak 's/endpoint/${jsonitem['DBInstances'][0]['Endpoint']['Address']}/g' userdata.txt"
+           sh "sed -i.bak 's/endpoint/${jsonitem['DBInstances'][0]['Endpoint']['Address']}/g' userdata.txt"
           script{
               def cmd = "aws elbv2 create-load-balancer --name my-load-balancer --subnets subnet-03f6f0a2a4d755ea8 subnet-01b6ac774a28996b1 --security-groups sg-02e8896045267edb7 --region us-east-2 "
               def output = sh(script: cmd,returnStdout: true)
